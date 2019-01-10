@@ -1,26 +1,16 @@
 import React from 'react';
 import './Trips.css';
 import TripForm from '../TripForm/TripForm';
-import { Container, Table } from 'semantic-ui-react';
-import axios from '../../axios-trips';
+import { Container, Card, } from 'semantic-ui-react';
+import axios from 'axios';
 
 class Trips extends React.Component {
   state = { showForm: false, trips:[] }
 
-  // componentDidMount = () => {
-  //   axios.get('/trips.json')
-  //   // .then(res => this.setState({ trips: res.data}) )
-  //   .then(res => {
-  //     const fetchedTrips = [];
-  //     for(let key in res.data) {
-  //       fetchedTrips.push({
-  //         ...res.data[key],
-  //         id:key
-  //       })
-  //     }
-  //     this.setState({trips: fetchedTrips})
-  //   })
-  // }
+componentDidMount = () => {
+  axios.get('api/trips')
+  .then(res => this.setState({ trips: res.data }))
+}
 
   showForm = () => {
     return <TripForm submit={this.submit} />
@@ -34,7 +24,7 @@ class Trips extends React.Component {
 
   submit = (trip) => {
     const { trips } = this.state
-    axios.post('/trips.json', (trip) )
+    axios.post('/api/trips', {trip})
      .then(res => {
        this.setState({
          trips:[...trips, res.data],
@@ -46,27 +36,30 @@ class Trips extends React.Component {
   showTrips = () => {
     const { trips } = this.state
     return(
-      <div>
+      <div className="cards">
         <br />
-        <Table celled padded>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Name</Table.HeaderCell>
-              <Table.HeaderCell>Dates</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-        { trips.map( (t, i) =>
-          <Table.Body key={i}>
-            <Table.Row>
-              <Table.Cell key={t.id}>{t.name}</Table.Cell>
-              <Table.Cell key={t.id}>{t.date}</Table.Cell>
-            </Table.Row>
-          </Table.Body>
+        {trips.map( (t, i) =>
+          <Card.Group stackable centered itemsPerRow={3}>
+            <a href={`/mytrip/${t.id}`}>
+            <Card style={styles.cards}  key={i}>
+              <Card.Content>
+                <Card.Header  style={{color:'rgb(114, 175, 171)'}} key={t.i}>{t.name}</Card.Header>
+                <Card.Meta key={t.i}>
+                  <span>{t.date}</span>
+                </Card.Meta>
+              </Card.Content>
+            </Card>
+          </a>
+          </Card.Group>
+
         )}
-        </Table>
       </div>
     )
   }
+
+  // <Link to={`/apps/${app.id}`}>
+  //         View App
+  //       </Link>
 
   render() {
     const { showForm } = this.state;
@@ -84,6 +77,12 @@ class Trips extends React.Component {
   }
 }
 
+ const styles = {
+   cards: {
+     display:'flex',
+     margin:'20px'
+   }
+ }
 
 
 export default Trips;
