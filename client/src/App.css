@@ -1,6 +1,6 @@
 .background {
   background-image: url(https://images.pexels.com/photos/412681/pexels-photo-412681.jpeg?cs=srgb&dl=beach-buildings-city-412681.jpg&fm=jpg);
-  height:800px;
+  height:100%;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -31,4 +31,11 @@
 .button a {
   color: rgb(114, 175, 171);
   text-decoration: none;
+}
+
+.headline {
+  color: white;
+  text-align: center;
+  font-family: 'Dancing Script';
+  font-size: 90px
 }

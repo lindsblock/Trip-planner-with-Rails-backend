@@ -3,6 +3,8 @@ import './Trips.css';
 import TripForm from '../TripForm/TripForm';
 import { Container, Card, } from 'semantic-ui-react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+// import TripView from '../TripView/TripView';
 
 class Trips extends React.Component {
   state = { showForm: false, trips:[] }
@@ -38,28 +40,24 @@ componentDidMount = () => {
     return(
       <div className="cards">
         <br />
-        {trips.map( (t, i) =>
-          <Card.Group stackable centered itemsPerRow={3}>
-            <a href={`/mytrip/${t.id}`}>
-            <Card style={styles.cards}  key={i}>
+        {trips.map( (t, id) =>
+          <Card.Group key={id} stackable centered itemsPerRow={3}>
+            <Link to={`/trips/${id}`}>
+            <Card style={styles.cards} >
               <Card.Content>
-                <Card.Header  style={{color:'rgb(114, 175, 171)'}} key={t.i}>{t.name}</Card.Header>
-                <Card.Meta key={t.i}>
-                  <span>{t.date}</span>
+                <Card.Header style={{color:'rgb(114, 175, 171)'}}>{t.name}</Card.Header>
+                <Card.Meta>
+                  <span >{t.date}</span>
                 </Card.Meta>
               </Card.Content>
             </Card>
-          </a>
+          </Link>
           </Card.Group>
-
         )}
+        {/* <TripView tripInfo={this.state.trips} /> */}
       </div>
     )
   }
-
-  // <Link to={`/apps/${app.id}`}>
-  //         View App
-  //       </Link>
 
   render() {
     const { showForm } = this.state;

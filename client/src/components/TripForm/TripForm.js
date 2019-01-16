@@ -1,7 +1,6 @@
 import React from 'react';
 import './TripForm.css';
-import { Form, Divider, Button } from 'semantic-ui-react';
-
+import { Form } from 'semantic-ui-react';
 
 class TripForm extends React.Component {
   state = {
@@ -10,11 +9,6 @@ class TripForm extends React.Component {
       date: '',
     }],
   }
-
-  // componentDidMount() {
-  //   if (this.props.id)
-  //   this.setState({...this.props})
-  // }
 
   handleSubmit = (e) => {
     e.preventDefault();
