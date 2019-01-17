@@ -40,21 +40,20 @@ componentDidMount = () => {
     return(
       <div className="cards">
         <br />
-        {trips.map( (t, id) =>
-          <Card.Group key={id} stackable centered itemsPerRow={3}>
-            <Link to={`/trips/${id}`}>
+        {trips.map( (trip) =>
+          <Card.Group key={trip.id} stackable centered itemsPerRow={3}>
+            <Link to={`/trips/${trip.id}`}>
             <Card style={styles.cards} >
               <Card.Content>
-                <Card.Header style={{color:'rgb(114, 175, 171)'}}>{t.name}</Card.Header>
+                <Card.Header style={{color:'rgb(114, 175, 171)'}}>{trip.name}</Card.Header>
                 <Card.Meta>
-                  <span >{t.date}</span>
+                  <span >{trip.date}</span>
                 </Card.Meta>
               </Card.Content>
             </Card>
           </Link>
           </Card.Group>
         )}
-        {/* <TripView tripInfo={this.state.trips} /> */}
       </div>
     )
   }

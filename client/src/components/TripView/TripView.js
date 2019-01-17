@@ -13,9 +13,9 @@ class TripView extends React.Component{
  //   this.setState({...this.props})
  // }
   componentDidMount = () => {
-    axios.get(`api/trips/${this.props.match.params.id}`)
-    .then(res => console.log(res.data))
-    // .then(res => this.setState({trips: res.data}))
+    axios.get(`/api/trips/${this.props.match.params.id}`)
+    // .then(res => console.log(res.data))
+    .then(res => this.setState({trips: res.data}))
   }
 
   render(){
@@ -23,7 +23,7 @@ class TripView extends React.Component{
     return(
       <div>
         <h1 className="headline">You're Going to...{trips.name}!</h1>
-        <h2 className="subHeadline">Date</h2>
+        <h2 className="subHeadline">{trips.date}</h2>
         <div className="allCards">
           <div className="card">
             <h1>Flight</h1>
