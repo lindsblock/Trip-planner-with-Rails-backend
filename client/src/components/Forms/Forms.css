@@ -2,19 +2,14 @@
   display:flex;
   justify-content: center;
   align-items: center;
-  width:auto;
+  width:800px;
   background: rgba(255, 255, 255, .5);
   font-family: 'Catamaran';
+  font-size: 30px;
   margin-left: auto;
   margin-right: auto;
   margin-top:40px;
   padding:40px;
   border-radius: 4px;
   text-align: center;
-}
-
-.input {
-  border-radius: 4px;
-  border: none;
-
 }

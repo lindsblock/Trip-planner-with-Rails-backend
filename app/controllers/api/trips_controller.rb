@@ -2,7 +2,7 @@ class Api::TripsController < ApplicationController
   before_action :set_trip, only: [:update, :destroy, :show]
 
   def index
-    render json: Trip.all.order(created_at: :desc)
+    render json: Trip.all.order(created_at: :asc)
   end
 
   def show

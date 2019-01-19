@@ -3,19 +3,27 @@ import React from 'react';
 import './TripView.css';
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios';
+import FlightForm from '../Forms/FlightForm';
 
 
 class TripView extends React.Component{
-  state = { trips:[] }
+  state = { trips:[], showForm: false }
 
- //  componenetDidMount() {
- //   if (this.props.id)
- //   this.setState({...this.props})
- // }
   componentDidMount = () => {
     axios.get(`/api/trips/${this.props.match.params.id}`)
-    // .then(res => console.log(res.data))
     .then(res => this.setState({trips: res.data}))
+  }
+
+  addFlight = () => {
+    this.setState({showForm: true})
+    console.log(this.state.showForm)
+    return (<FlightForm />) ;
+  }
+
+  deleteTrip = (id) => {
+    axios.delete(`api/trips/${id}`)
+    let trip = {...this.state}
+    this.setState({...trip})
   }
 
   render(){
@@ -52,13 +60,13 @@ class TripView extends React.Component{
                 <td>None</td>
                 <td>$500</td>
                 <td>
-                  <Icon  style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="edit" size="small" />
-                  <Icon style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="delete" size="small" />
+                  <Icon  style={styles.icons} circular name="edit" size="small" />
+                  <Icon style={styles.icons} circular name="delete" size="small" />
                 </td>
               </tr>
             </tbody>
             </table>
-            <button className="cardButton">Add Flight</button>
+            <button className="cardButton" onClick={this.addFlight}>Add Flight</button>
           </div>
           <div className="card">
             <h1>Hotel</h1>
@@ -83,8 +91,8 @@ class TripView extends React.Component{
                 <td>Yes</td>
                 <td>11111</td>
                 <td>
-                  <Icon  style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="edit" size="small" />
-                  <Icon style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="delete" size="small" />
+                  <Icon  style={styles.icons} circular name="edit" size="small" />
+                  <Icon style={styles.icons} circular name="delete" size="small" />
                 </td>
               </tr>
             </tbody>
@@ -114,8 +122,8 @@ class TripView extends React.Component{
                 <td>Yes</td>
                 <td>11111</td>
                 <td>
-                  <Icon  style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="edit" size="small" />
-                  <Icon style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="delete" size="small" />
+                  <Icon  style={styles.icons} circular name="edit" size="small" />
+                  <Icon style={styles.icons} circular name="delete" size="small" />
                 </td>
               </tr>
             </tbody>
@@ -145,8 +153,8 @@ class TripView extends React.Component{
                 <td>Yes</td>
                 <td>11111</td>
                 <td>
-                  <Icon  style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="edit" size="small" />
-                  <Icon style={{background: 'rgb(114, 175, 171)', color:'white'}} circular name="delete" size="small" />
+                  <Icon  style={styles.icons} circular name="edit" size="small" />
+                  <Icon style={styles.icons} circular name="delete" size="small" />
                 </td>
               </tr>
               </tbody>
@@ -159,7 +167,12 @@ class TripView extends React.Component{
 
   }
 }
-
+ const styles ={
+   icons: {
+     background: 'rgb(114,175,171)',
+     color: 'white',
+   }
+ }
 
 
 export default TripView;

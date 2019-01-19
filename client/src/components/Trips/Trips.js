@@ -1,10 +1,9 @@
 import React from 'react';
 import './Trips.css';
 import TripForm from '../TripForm/TripForm';
-import { Container, Card, } from 'semantic-ui-react';
+import { Container, Card, Icon, Divider } from 'semantic-ui-react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import TripView from '../TripView/TripView';
 
 class Trips extends React.Component {
   state = { showForm: false, trips:[] }
@@ -35,6 +34,16 @@ componentDidMount = () => {
      })
   }
 
+  deleteTrip = (id) => {
+    const { trips } = this.state
+    axios.delete(`api/trips/${id}`)
+    .then( () => {
+      this.setState({ trips: trips.filter(t => t.id !== id) })
+    })
+    // let trip = {...this.state}
+    // this.setState({...trip})
+  }
+
   showTrips = () => {
     const { trips } = this.state
     return(
@@ -42,16 +51,22 @@ componentDidMount = () => {
         <br />
         {trips.map( (trip) =>
           <Card.Group key={trip.id} stackable centered itemsPerRow={3}>
-            <Link to={`/trips/${trip.id}`}>
             <Card style={styles.cards} >
               <Card.Content>
-                <Card.Header style={{color:'rgb(114, 175, 171)'}}>{trip.name}</Card.Header>
+                <Link
+                  style={styles.links} to={`/trips/${trip.id}`}>
+                <Card.Header style={{paddingTop:'15px'}}>{trip.name}</Card.Header>
+              </Link>
+              <Divider hidden />
                 <Card.Meta>
                   <span >{trip.date}</span>
                 </Card.Meta>
               </Card.Content>
+              <div className="buttonDiv">
+                <Icon  style={styles.icons} circular name="edit" size="small" />
+                <Icon style={styles.icons} onClick={()=> this.deleteTrip(trip.id)} circular name="delete" size="small" />
+              </div>
             </Card>
-          </Link>
           </Card.Group>
         )}
       </div>
@@ -78,6 +93,16 @@ componentDidMount = () => {
    cards: {
      display:'flex',
      margin:'20px'
+   },
+   icons: {
+     background: 'rgb(114,175,171)',
+     color: 'white',
+   },
+   links: {
+     fontSize:'35px',
+     fontFamily:'Catamaran',
+     color:'rgb(114, 175, 171)',
+     fontWeight:'bold'
    }
  }
 
