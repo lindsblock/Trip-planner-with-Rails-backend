@@ -2,15 +2,13 @@ import React from 'react';
 import './Forms.css';
 import { Form } from 'semantic-ui-react';
 
-class FlightForm extends React.Component {
+class HotelForm extends React.Component {
   state = {
-    flight: [{
-      airline: '',
-      to: '',
-      from: '',
-      departs: '',
-      arrives: '',
-      layover: '',
+    hotel: [{
+      name: '',
+      location: '',
+      dates: '',
+      bookedThrough: '',
       confirmation: '',
       notes: '',
       price: '',
@@ -19,8 +17,8 @@ class FlightForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let flight = {...this.state}
-    this.props.submit(flight)
+    let hotel = {...this.state}
+    this.props.submit(hotel)
     this.setState({...this.state})
   }
 
@@ -30,50 +28,38 @@ handleChange = (e) => {
 }
 
   render(){
-    const { airline, to, from, departs, arrives, layover, confirmation, notes, price } = this.state
+    const { name, dates, bookedThrough, location, confirmation, notes, price } = this.state
     return(
       <div>
-        <h1 className="headline">Add A Flight</h1>
+        <h1 className="headline">Add A Hotel</h1>
         <div className="formHolder">
           <Form style={styles.form} onSubmit={this.handleSubmit}>
             <Form.Group widths="equal">
               <Form.Input
-                name="airline"
-                value={airline}
-                label="AIRLINE"
+                name="name"
+                value={name}
+                label="NAME"
                 onChange={this.handleChange}
               />
               <Form.Input
-                name="to"
-                value={to}
+                name="location"
+                value={location}
                 onChange={this.handleChange}
-                label="TO"
+                label="LOCATION"
               />
               <Form.Input
-                name="from"
-                value={from}
+                name="dates"
+                value={dates}
                 onChange={this.handleChange}
-                label="FROM"
+                label="DATES"
               />
             </Form.Group>
             <Form.Group widths="equal">
               <Form.Input
-                name="departs"
-                value={departs}
+                name="bookedThrough"
+                value={bookedThrough}
                 onChange={this.handleChange}
-                label="DEPARTS"
-              />
-              <Form.Input
-                name="arrives"
-                value={arrives}
-                onChange={this.handleChange}
-                label="ARRIVES"
-              />
-              <Form.Input
-                name="layover"
-                value={layover}
-                onChange={this.handleChange}
-                label="LAYOVER"
+                label="BOOKED THROUGH"
               />
             </Form.Group>
             <Form.Group widths="equal">
@@ -108,4 +94,4 @@ const styles = {
     fontSize:'20px'
   }
 }
-export default FlightForm;
+export default HotelForm;

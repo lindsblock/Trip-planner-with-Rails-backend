@@ -7,18 +7,17 @@ import FlightForm from '../Forms/FlightForm';
 
 
 class TripView extends React.Component{
-  state = { trips:[], showForm: false }
+  state = { trips:[] }
 
   componentDidMount = () => {
     axios.get(`/api/trips/${this.props.match.params.id}`)
     .then(res => this.setState({trips: res.data}))
   }
 
-  addFlight = () => {
-    this.setState({showForm: true})
-    console.log(this.state.showForm)
-    return (<FlightForm />) ;
-  }
+  // addFlight = () => {
+  //   this.setState({showForm: true})
+  //   return <FlightForm  showForm={this.state.showForm} />;
+  // }
 
   deleteTrip = (id) => {
     axios.delete(`api/trips/${id}`)
@@ -66,7 +65,10 @@ class TripView extends React.Component{
               </tr>
             </tbody>
             </table>
-            <button className="cardButton" onClick={this.addFlight}>Add Flight</button>
+            <a href="/flight">
+              <button className="cardButton" >Add Flight</button>
+            </a>
+
           </div>
           <div className="card">
             <h1>Hotel</h1>
@@ -97,7 +99,9 @@ class TripView extends React.Component{
               </tr>
             </tbody>
             </table>
-            <button className="cardButton">Add Hotel</button>
+            <a href="/hotel">
+              <button className="cardButton">Add Hotel</button>
+            </a>
           </div>
           <div className="card">
             <h1>Car Rental</h1>
