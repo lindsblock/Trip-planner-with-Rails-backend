@@ -33,19 +33,7 @@
   align-items: center;
 }
 
-.cardButton {
-  font-family: 'Catamaran';
-  font-size: 20px;
-  border-radius: 4px;
-  border: none;
-  padding: 15px 20px 15px 20px;
-  cursor: pointer;
-  text-decoration: none;
-  outline: none;
-  color: rgb(114, 175, 171);
-  font-weight: bold;
-  background:rgb(215, 215, 215)
-}
+
 
 table {
   font-family: 'catamaran';

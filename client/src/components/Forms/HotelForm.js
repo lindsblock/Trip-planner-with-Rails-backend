@@ -1,6 +1,6 @@
 import React from 'react';
 import './Forms.css';
-import { Form } from 'semantic-ui-react';
+import { Form, Divider } from 'semantic-ui-react';
 
 class HotelForm extends React.Component {
   state = {
@@ -31,6 +31,7 @@ handleChange = (e) => {
     const { name, dates, bookedThrough, location, confirmation, notes, price } = this.state
     return(
       <div>
+        <Divider />
         <h1 className="headline">Add A Hotel</h1>
         <div className="formHolder">
           <Form style={styles.form} onSubmit={this.handleSubmit}>
@@ -82,7 +83,7 @@ handleChange = (e) => {
                 label="PRICE"
               />
             </Form.Group>
-            <button className="button">Submit</button>
+            <button className="cardButton">Submit</button>
           </Form>
         </div>
       </div>

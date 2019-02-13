@@ -1,27 +1,31 @@
 import React from 'react';
 import './Forms.css';
-import { Form } from 'semantic-ui-react';
+import { Form, Divider } from 'semantic-ui-react';
+import axios from 'axios';
 
 class FlightForm extends React.Component {
   state = {
     flight: [{
       airline: '',
-      to: '',
-      from: '',
-      departs: '',
-      arrives: '',
-      layover: '',
-      confirmation: '',
-      notes: '',
-      price: '',
+      // destination: '',
+      // origin: '',
+      // departs: '',
+      // arrives: '',
+      // layover: '',
+      // confirmation: '',
+      // notes: '',
+      // price: '',
     }],
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let flight = {...this.state}
-    this.props.submit(flight)
-    this.setState({...this.state})
+    axios.post('api/flights', {...this.state})
+    .then(res => {
+      this.setState({ flight: res.data})
+    })
+
+
   }
 
 handleChange = (e) => {
@@ -30,9 +34,10 @@ handleChange = (e) => {
 }
 
   render(){
-    const { airline, to, from, departs, arrives, layover, confirmation, notes, price } = this.state
+    const { airline, origin, destination, departs, arrives, layover, confirmation, notes, price } = this.state
     return(
       <div>
+        <Divider />
         <h1 className="headline">Add A Flight</h1>
         <div className="formHolder">
           <Form style={styles.form} onSubmit={this.handleSubmit}>
@@ -43,17 +48,18 @@ handleChange = (e) => {
                 label="AIRLINE"
                 onChange={this.handleChange}
               />
-              <Form.Input
-                name="to"
-                value={to}
+            </Form.Group>
+              {/* <Form.Input
+                name="destination"
+                value={destination}
                 onChange={this.handleChange}
-                label="TO"
+                label="DESTINATION"
               />
               <Form.Input
-                name="from"
-                value={from}
+                name="origin"
+                value={origin}
                 onChange={this.handleChange}
-                label="FROM"
+                label="ORIGIN"
               />
             </Form.Group>
             <Form.Group widths="equal">
@@ -95,8 +101,8 @@ handleChange = (e) => {
                 onChange={this.handleChange}
                 label="PRICE"
               />
-            </Form.Group>
-            <button className="button">Submit</button>
+            </Form.Group> */}
+            <button className="cardButton">Submit</button>
           </Form>
         </div>
       </div>

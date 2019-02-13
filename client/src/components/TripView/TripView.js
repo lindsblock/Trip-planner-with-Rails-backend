@@ -1,23 +1,53 @@
 import React from 'react';
-// import ItemForm from '../ItemForm/ItemForm';
 import './TripView.css';
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import FlightForm from '../Forms/FlightForm';
+import HotelForm from '../Forms/HotelForm';
+import CarRentalForm from '../Forms/CarRentalForm';
+import ActivityForm from '../Forms/ActivityForm';
 
 
 class TripView extends React.Component{
-  state = { trips:[] }
+  state = {
+    trips:[],
+    showFlight: false,
+    showHotel: false,
+    showCar: false,
+    showActivity: false}
+
 
   componentDidMount = () => {
     axios.get(`/api/trips/${this.props.match.params.id}`)
     .then(res => this.setState({trips: res.data}))
   }
 
-  // addFlight = () => {
-  //   this.setState({showForm: true})
-  //   return <FlightForm  showForm={this.state.showForm} />;
-  // }
+  toggleFlight = () => {
+    // this.setState({showForm: true})
+    this.setState( state => {
+      return { showFlight: !state.showFlight}
+    })
+  }
+  toggleHotel = () => {
+    // this.setState({showForm: true})
+    this.setState( state => {
+      return { showHotel: !state.showHotel}
+    })
+  }
+  toggleCar= () => {
+    // this.setState({showForm: true})
+    this.setState( state => {
+      return { showCar: !state.showCar}
+    })
+  }
+  toggleActivity = () => {
+    // this.setState({showForm: true})
+    this.setState( state => {
+      return { showActivity: !state.showActivity}
+    })
+  }
+
+
 
   deleteTrip = (id) => {
     axios.delete(`api/trips/${id}`)
@@ -26,7 +56,7 @@ class TripView extends React.Component{
   }
 
   render(){
-    const {trips} = this.state
+    const {trips, showFlight, showHotel, showCar, showActivity } = this.state
     return(
       <div>
         <h1 className="headline">You're Going to...{trips.name}!</h1>
@@ -65,10 +95,10 @@ class TripView extends React.Component{
               </tr>
             </tbody>
             </table>
-            <a href="/flight">
-              <button className="cardButton" >Add Flight</button>
-            </a>
-
+            <button onClick={this.toggleFlight} className="cardButton" >
+              { showFlight ? 'Cancel' : 'Add Flight'}
+            </button>
+            { this.state.showFlight ? <FlightForm /> : null }
           </div>
           <div className="card">
             <h1>Hotel</h1>
@@ -99,9 +129,10 @@ class TripView extends React.Component{
               </tr>
             </tbody>
             </table>
-            <a href="/hotel">
-              <button className="cardButton">Add Hotel</button>
-            </a>
+              <button onClick={this.toggleHotel} className="cardButton">
+                { showHotel ? 'Cancel' : 'Add Hotel'}
+              </button>
+              { this.state.showHotel ? <HotelForm /> : null }
           </div>
           <div className="card">
             <h1>Car Rental</h1>
@@ -132,7 +163,10 @@ class TripView extends React.Component{
               </tr>
             </tbody>
             </table>
-            <button className="cardButton">Add Car</button>
+            <button onClick={this.toggleCar} className="cardButton" >
+              { showCar ? 'Cancel' : 'Add Car Rental'}
+            </button>
+            { this.state.showCar ? <CarRentalForm /> : null }
           </div>
           <div className="card">
             <h1>Activites</h1>
@@ -163,7 +197,10 @@ class TripView extends React.Component{
               </tr>
               </tbody>
             </table>
-            <button className="cardButton">Add Activity</button>
+            <button onClick={this.toggleActivity} className="cardButton" >
+              { showActivity ? 'Cancel' : 'Add An Activity'}
+            </button>
+            { this.state.showActivity ? <ActivityForm /> : null }
           </div>
         </div>
       </div>
